@@ -1,6 +1,6 @@
 // this is a comment, and is ignored by the compiler
 
-// main function.
+// main function
 fn main() {
 	// statements here are executed when the compiled binary is called
 
