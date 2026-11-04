@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>rust + webassembly</title>
+</head>
+<body>
+	<h1>rust + wasm: math lib</h1>
+	<br />value 1 <input id="value1" placeholder="enter value 1" />
+	<br />value 2 <input id="value2" placeholder="enter value 2" />
+	&nbsp;<button onclick="add()">add</button>
+	&nbsp;<button onclick="subtract()">subtract</button>
+	&nbsp;<button onclick="multiply()">multiply</button>
+	&nbsp;<button onclick="divide()">divide</button>
+	<br />result <p id="output">
+	<script type="module">
+		import init, { add, subtract, multiply, divide } from "./pkg/math_lib.js";
+
+		async function run() {
+			await init();
+		}
+		run();
+		window.add = () => {
+			const value1 = document.getElementById("value1").value;
+			const value2 = document.getElementById("value2").value;
+			const result = add(value1, value2);
+			document.getElementById("output").textContent = result;
+		};
+		window.subtract = () => {
+			const value1 = document.getElementById("value1").value;
+			const value2 = document.getElementById("value2").value;
+			const result = subtract(value1, value2);
+			document.getElementById("output").textContent = result;
+		};
+		window.multiply = () => {
+			const value1 = document.getElementById("value1").value;
+			const value2 = document.getElementById("value2").value;
+			const result = multiply(value1, value2);
+			document.getElementById("output").textContent = result;
+		};
+		window.divide = () => {
+			const value1 = document.getElementById("value1").value;
+			const value2 = document.getElementById("value2").value;
+			const result = divide(value1, value2);
+			document.getElementById("output").textContent = result;
+		};				
+	</script>
+</body>
+
+</html>

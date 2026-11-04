@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>rust + webassembly</title>
+</head>
+<body>
+	<h1>rust + wasm: hello world</h1>
+	<input id="name" placeholder="enter your name" />
+	<button onclick="sayHello()">say hello</button>
+	<p id="output"></p>
+	<script type="module">
+		import init, { greet } from "./pkg/hello_wasm.js";
+
+		async function run() {
+			await init();
+		}
+		run();
+		window.sayHello = () => {
+			const name = document.getElementById("name").value;
+			const greeting = greet(name);
+			document.getElementById("output").textContent = greeting;
+		};
+	</script>
+</body>
+
+</html>
