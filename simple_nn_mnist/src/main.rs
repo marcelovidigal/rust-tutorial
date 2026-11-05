@@ -1,7 +1,10 @@
 /// mnist digit classification with candle and 
 /// direct download from the hugging face hub
+//use std::path::Path;
 use candle_core::{DType, Device, Tensor};
 use candle_nn::{linear, Linear, Module, Optimizer, VarBuilder, VarMap};
+//use candle_datasets::vision::Dataset;
+//use candle_datasets::vision::mnist;
 
 const DEVICE: Device = Device::Cpu;
 
@@ -82,7 +85,7 @@ fn train_model(
 	for epoch in 0..epochs {
 		// learning rate decay scheduler
 		// example, cut the learning rate in half every 15,000 epochs
-		if epoch > 0 && epoch % 1000 == 0 {
+		if epoch > 0 && epoch % 100 == 0 {
 			current_lr *= 0.5;
 
 			// fetch current optimizer params, update lr, and apply them back
@@ -98,7 +101,7 @@ fn train_model(
 
 		optimizer.backward_step(&loss)?;
 
-		if (epoch + 1) % 5 == 0 {
+		if (epoch + 1) % 100 == 0 {
 			let train_loss = loss.to_scalar::<f32>()?;
 			let acc = compute_accuracy(&logits, y_train)?;
 
@@ -132,17 +135,22 @@ fn main() -> anyhow::Result<()> {
 	println!("downloading/loading the mnist dataset from hugging face...");
 
 	// downloads and loads the mnist dataset natively using the candle-datasets crate
-	let mnist = candle_datasets::vision::mnist::load()?;
+	let mnist_data = candle_datasets::vision::mnist::load()?;
+
+	// specify a custom local directory where the files should be saved/loaded
+    //let dataset_path = Path::new("data/mnist");
+    //let mnist_data: Dataset = candle_datasets::vision::mnist::load_dir(dataset_path)?;
 	println!("dataset successfully loaded!");
-	println!("training - shape images: {:?}", mnist.train_images.shape());
-	println!("training - shape labels: {:?}", mnist.train_labels.shape());
+
+	println!("training - shape images: {:?}", mnist_data.train_images.shape());
+	println!("training - shape labels: {:?}", mnist_data.train_labels.shape());
 
 	// tensors come pre-included in the default device, with pixels normalized/prepared by `candle-datasets`
-	let x_train = mnist.train_images.to_device(&DEVICE)?;
-	let y_train = mnist.train_labels.to_dtype(DType::U32)?.to_device(&DEVICE)?;
+	let x_train = mnist_data.train_images.to_device(&DEVICE)?;
+	let y_train = mnist_data.train_labels.to_dtype(DType::U32)?.to_device(&DEVICE)?;
 
-	let x_test = mnist.test_images.to_device(&DEVICE)?;
-	let y_test = mnist.test_labels.to_dtype(DType::U32)?.to_device(&DEVICE)?;
+	let x_test = mnist_data.test_images.to_device(&DEVICE)?;
+	let y_test = mnist_data.test_labels.to_dtype(DType::U32)?.to_device(&DEVICE)?;
 
 	let train_d2 = x_train.dims()[1]; // 784 pixels (28x28)
 
@@ -161,7 +169,7 @@ fn main() -> anyhow::Result<()> {
 	let mut optimizer = candle_nn::AdamW::new(varmap.all_vars(), optim_config)?;
 
 	println!("starting training...");
-	train_model(&model, &x_train, &y_train, &mut optimizer, 5000)?;
+	train_model(&model, &x_train, &y_train, &mut optimizer, 1000)?;
 
 	println!("evaluating the model...");
 	evaluate_model(&model, &x_test, &y_test)?;
