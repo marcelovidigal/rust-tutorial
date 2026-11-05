@@ -1,6 +1,7 @@
 /// mnist digit classification with candle and 
 /// direct download from the hugging face hub
 //use std::path::Path;
+use std::time::Instant;
 use candle_core::{DType, Device, Tensor};
 use candle_nn::{linear, Linear, Module, Optimizer, VarBuilder, VarMap};
 //use candle_datasets::vision::Dataset;
@@ -169,8 +170,11 @@ fn main() -> anyhow::Result<()> {
 	let mut optimizer = candle_nn::AdamW::new(varmap.all_vars(), optim_config)?;
 
 	println!("starting training...");
+	let start_time = Instant::now();
 	train_model(&model, &x_train, &y_train, &mut optimizer, 1000)?;
-
+	let training_duration = start_time.elapsed();
+	println!("Training completed in {:.2?}", training_duration);
+	
 	println!("evaluating the model...");
 	evaluate_model(&model, &x_test, &y_test)?;
 
