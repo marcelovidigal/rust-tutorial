@@ -2,3 +2,13 @@ todo-cli/target/
 hello-wasm/target/
 math_lib/target/
 math_lib_wasm/target/
+simple_nn/target/
+.gitignore
+simple_nn/.DS_Store
+simple_nn/Cargo.lock
+simple_nn/Cargo.toml
+simple_nn/fetch_california_housing.json
+simple_nn/price_prediction.ipynb
+simple_nn/pytorch_model.safetensors
+simple_nn/readme.md
+simple_nn/simple_nn_v1.safetensors
