@@ -6,3 +6,6 @@ simple_nn/target/
 simple_nn/.DS_Store
 simple_nn/Cargo.lock
 simple_nn/fetch_california_housing.json
+.DS_Store
+ollama/target/
+ollama/Cargo.lock
