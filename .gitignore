@@ -1,3 +1,4 @@
+.DS_Store
 todo-cli/target/
 hello-wasm/target/
 math_lib/target/
@@ -6,10 +7,10 @@ simple_nn/target/
 simple_nn/.DS_Store
 simple_nn/Cargo.lock
 simple_nn/fetch_california_housing.json
-.DS_Store
+simple_nn_mnist/target/
+simple_nn_mnist/Cargo.lock
 ollama/target/
 ollama/Cargo.lock
 ollama_v2/target/
+ollama_v2/temp/
 ollama_v2/Cargo.lock
-simple_nn_mnist/target/
-simple_nn_mnist/Cargo.lock

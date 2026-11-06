@@ -1,38 +1,23 @@
 ### experiment 01 results
-- nn: fc1(in_dim, 64) -> fc2(64, 1)
-- epochs: 10000
+- nn: fc1(in_dim, 128) -> fc2(128, 64) -> fc3(64, classes)
+- epochs: 1000
 - standardization: false
 
 | metric | value |
 | :--- | :--- |
-| **train loss (mse)** | `0.2379` |
-| **train accuracy** | `66.65%` |
-| **test loss (mse)** | `0.2844` |
-| **test mae** | `0.3613` |
-| **test accuracy (within $\pm 20\%$)** | `64.53%` |
+| **train loss (mse)** | `0.0198` |
+| **train accuracy** | `99.62%` |
+| **test loss (mse)** | `0.0932` |
+| **test accuracy (within $\pm 20\%$)** | `97.46%` |
 
 ### experiment 02 results
-- nn: fc1(in_dim, 128) -> fc2(128, 64) -> fc3(64, 1)
-- epochs: 10000
-- standardization: false
-
-| metric | value |
-| :--- | :--- |
-| **train loss (mse)** | `0.1483` |
-| **train accuracy** | `75.25%` |
-| **test loss (mse)** | `0.3491` |
-| **test mae** | `0.3990` |
-| **test accuracy (within $\pm 20\%$)** | `59.84%` |
-
-### experiment 02 results
-- nn: fc1(in_dim, 128) -> fc2(128, 64) -> fc3(64, 1)
-- epochs: 10000
+- nn: fc1(in_dim, 128) -> fc2(128, 64) -> fc3(64, classes)
+- epochs: 1000
 - standardization: true
 
 | metric | value |
 | :--- | :--- |
-| **train loss (mse)** | `` |
-| **train accuracy** | `` |
-| **test loss (mse)** | `` |
-| **test mae** | `` |
-| **test accuracy (within $\pm 20\%$)** | `` |
+| **train loss (mse)** | `0.0180` |
+| **train accuracy** | `99.71%` |
+| **test loss (mse)** | `0.0930` |
+| **test accuracy (within $\pm 20\%$)** | `97.40%` |
